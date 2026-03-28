@@ -1,12 +1,13 @@
 package config
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"context"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/terraform"
 )
 
 // ExternalNameConfigs contains all external name configurations for this
@@ -61,30 +62,34 @@ func getNameFromFullyQualifiedID(tfstate map[string]any) (string, error) {
 }
 
 func getFullyQualifiedIDfunc(ctx context.Context, externalName string, parameters map[string]any, providerConfig map[string]any) (string, error) {
-	subID, ok := providerConfig["subscription_id"]
+	configuration, ok := providerConfig["configuration"].(terraform.ProviderConfiguration)
+	if !ok {
+		return "", errors.New("No attribute 'configuration'")
+	}
+	subID, ok := configuration["subscription_id"]
 	if !ok {
 		return "", errors.New(fmt.Sprint("No attribute 'subscription_id'"))
-    }
-    subIDStr, ok := subID.(string)
-    if !ok {
+	}
+	subIDStr, ok := subID.(string)
+	if !ok {
 		return "", errors.New(fmt.Sprint("Unexpected type for 'subscription_id'"))
-    }
-    rg, ok := parameters["resource_group_name"]
-    if !ok {
+	}
+	rg, ok := parameters["resource_group_name"]
+	if !ok {
 		return "", errors.New(fmt.Sprint("No attribute 'resource_group_name'"))
-    }
-    rgStr, ok := rg.(string)
-    if !ok {
+	}
+	rgStr, ok := rg.(string)
+	if !ok {
 		return "", errors.New(fmt.Sprint("Unexpected type for 'resource_group_name'"))
-    }
+	}
 	name, ok := parameters["name"]
-    if !ok {
+	if !ok {
 		return "", errors.New(fmt.Sprint("No attribute 'name'"))
-    }
-    nameStr, ok := name.(string)
-    if !ok {
+	}
+	nameStr, ok := name.(string)
+	if !ok {
 		return "", errors.New(fmt.Sprint("Unexpected type for 'name'"))
-    }
+	}
 
-    return fmt.Sprintf("/subscriptions/%s/resourceGroups/%s/providers/Oracle.Database/autonomousDatabases/%s", subIDStr, rgStr, nameStr), nil
+	return fmt.Sprintf("/subscriptions/%s/resourceGroups/%s/providers/Oracle.Database/autonomousDatabases/%s", subIDStr, rgStr, nameStr), nil
 }

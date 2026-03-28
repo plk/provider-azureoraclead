@@ -1,6 +1,6 @@
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-oraclead
+  name: provider-azureoraclead
 spec:
-  package: xpkg.crossplane.io/plk/provider-oraclead:v0.1.0
+  package: xpkg.crossplane.io/plk/provider-azureoraclead:v0.1.0

@@ -11,8 +11,8 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/terraform"
 
-	clusterv1beta1 "github.com/plk/provider-oraclead/apis/cluster/v1beta1"
-	namespacedv1beta1 "github.com/plk/provider-oraclead/apis/namespaced/v1beta1"
+	clusterv1beta1 "github.com/plk/provider-azureoraclead/apis/cluster/v1beta1"
+	namespacedv1beta1 "github.com/plk/provider-azureoraclead/apis/namespaced/v1beta1"
 )
 
 const (
@@ -56,6 +56,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"client_id":            creds["client_id"],
 			"tenant_id":            creds["tenant_id"],
 			"oidc_token_file_path": creds["oidc_token_file_path"],
+			"use_oidc":             true,
+			"features":             []map[string]any{{}},
 		}
 		return ps, nil
 	}

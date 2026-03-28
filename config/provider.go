@@ -6,13 +6,13 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-   oraadCluster "github.com/plk/provider-oraclead/config/cluster/oracle_autonomous_database"
-   oraadNamespaced "github.com/plk/provider-oraclead/config/namespaced/oracle_autonomous_database"
+	oraadCluster "github.com/plk/provider-azureoraclead/config/cluster/oracle/autonomousdatabase"
+	oraadNamespaced "github.com/plk/provider-azureoraclead/config/namespaced/oracle/autonomousdatabase"
 )
 
 const (
 	resourcePrefix = "oraclead"
-	modulePath     = "github.com/plk/provider-oraclead"
+	modulePath     = "github.com/plk/provider-azureoraclead"
 )
 
 //go:embed schema.json

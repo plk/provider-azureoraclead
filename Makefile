@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= provider-oraclead
+PROJECT_NAME ?= provider-azureoraclead
 PROJECT_REPO ?= github.com/plk/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION ?= 1.5.7
@@ -57,9 +57,9 @@ GO_SUBDIRS += cmd internal apis
 KIND_VERSION = v0.31.0
 UPTEST_VERSION = v2.2.0
 CRDDIFF_VERSION = v0.12.1
-CROSSPLANE_CLI_VERSION = v2.1.3
+CROSSPLANE_CLI_VERSION = v2.2.0
 # for e2e testing
-CROSSPLANE_VERSION = 2.1.3
+CROSSPLANE_VERSION = 2.2.0
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================
@@ -95,7 +95,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.provider-oraclead: do.build.images
+xpkg.build.provider-azureoraclead: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
@@ -131,7 +131,7 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 
 pull-docs:
 	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
-  		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
+		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
 		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
 	fi
 	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"

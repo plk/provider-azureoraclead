@@ -7,7 +7,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	"github.com/plk/provider-oraclead/apis/namespaced/v1beta1"
+	"github.com/plk/provider-azureoraclead/apis/namespaced/v1beta1"
 )
 
 // Setup adds a controller that reconciles ProviderConfigs and ClusterProviderConfigs

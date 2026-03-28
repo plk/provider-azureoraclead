@@ -34,14 +34,14 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	apisCluster "github.com/plk/provider-oraclead/apis/cluster"
-	apisNamespaced "github.com/plk/provider-oraclead/apis/namespaced"
-	"github.com/plk/provider-oraclead/config"
-	"github.com/plk/provider-oraclead/internal/clients"
-	controllerCluster "github.com/plk/provider-oraclead/internal/controller/cluster"
-	controllerNamespaced "github.com/plk/provider-oraclead/internal/controller/namespaced"
-	"github.com/plk/provider-oraclead/internal/features"
-	"github.com/plk/provider-oraclead/internal/version"
+	apisCluster "github.com/plk/provider-azureoraclead/apis/cluster"
+	apisNamespaced "github.com/plk/provider-azureoraclead/apis/namespaced"
+	"github.com/plk/provider-azureoraclead/config"
+	"github.com/plk/provider-azureoraclead/internal/clients"
+	controllerCluster "github.com/plk/provider-azureoraclead/internal/controller/cluster"
+	controllerNamespaced "github.com/plk/provider-azureoraclead/internal/controller/namespaced"
+	"github.com/plk/provider-azureoraclead/internal/features"
+	"github.com/plk/provider-azureoraclead/internal/version"
 )
 
 const (
@@ -84,7 +84,7 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("provider-oraclead"))
+	log := logging.NewLogrLogger(zl.WithName("provider-azureoraclead"))
 	if *debug {
 		// The controller-runtime runs with a no-op logger by default. It is
 		// *very* verbose even at info level, so we only provide it a real
@@ -121,7 +121,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:   *leaderElection,
-		LeaderElectionID: "crossplane-leader-election-provider-oraclead",
+		LeaderElectionID: "crossplane-leader-election-provider-azureoraclead",
 		Cache: cache.Options{
 			SyncPeriod: syncPeriod,
 		},

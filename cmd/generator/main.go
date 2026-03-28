@@ -7,7 +7,7 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
 
-	"github.com/plk/provider-oraclead/config"
+	"github.com/plk/provider-azureoraclead/config"
 )
 
 func main() {
